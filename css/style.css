@@ -1,57 +1,10 @@
-/* Enter your Styles below! */
-
-
-
-
-nav {
-	
+body,
+html {
+  height: 100%;
+  background: #fff;
+  font-family: "rig-solid-bold-reverse", sans-serif;
+  overflow: hidden;
 }
-li {
-	display: inline-block;
-font-family: rig-solid-bold-outline, sans-serif;
-}
-a {
-	display: inline-block;
-	text-decoration: none;
-	font-family: rig-solid-bold-reverse, sans-serif;
-}
- h2, h3, h4 {
-	font-family: rig-solid-bold-reverse, sans-serif;
-
-font-weight: 700;
-
-font-style: normal;
-}
-h1 {
-	font-family: rig-solid-bold-reverse, sans-serif;
-	font-weight: 900;
-	font-style: normal;
-}
-h1 .sub {
-	font-family: Rig-solid-bold-reverse,sans-serif;
-font-weight: 400;
-font-style: normal;
-}
-blockquote {
-	margin: 20px 60px;
-	font-family: ;
-}
-
-header {margin-bottom: 20px;}
-
-* {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
-}
-body {
-	position: relative;
-	width: 100%;
-	height: 100vh;
-	font-family: "Rig-solid-bold-reverse",sans-serif;
-	
-	}
-	
 
 .slideshow {
   position: absolute;
@@ -155,12 +108,12 @@ body {
   font-size: 80px;
   width: 100vw;
   text-align: center;
-  color: #fff;
-  font-family: "Roboto Condensed", sans-serif;
+  color: #000;
+  font-family: "rig-solid-bold-reverse", sans-serif;
   font-weight: 100;
   pointer-events: none;
   text-transform: uppercase;
-  letter-spacing: 20px;
+  letter-spacing: 5px;
   line-height: 0.8;
 }
 @media (max-width: 767px) {
@@ -180,43 +133,4 @@ body {
 }
 .the-most img {
   max-width: 100%;
-
-
-
-
-/*
-font-family: 'Mansalva', cursive;
-font-family: 'Dosis', sans-serif;
-font-family: 'Indie Flower', cursive;
-*/
-
-@media only screen and (min-width: 768px) {
-body {
-	background-color:;
 }
-}
-
-@media only screen and (min-width: 1024px) {
-body {
-	background-color:;
-}
-}
-
-@media only screen and (min-width: 1200px) {
-body {
-	background-color:;
-}
-}
-
-.parent {
-display: grid;
-grid-template-columns: repeat(12, 1fr);
-grid-template-rows: 1fr;
-grid-column-gap: 0px;
-grid-row-gap: 0px;
-}
-
-.div1 { grid-area: 1 / 1 / 2 / 3; }
-.div2 { grid-area: 1 / 9 / 2 / 11; }
-.div3 { grid-area: 1 / 11 / 2 / 12; }
-.div4 { grid-area: 1 / 12 / 2 / 13; }

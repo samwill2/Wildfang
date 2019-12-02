@@ -1,7 +1,4 @@
-function msg(){  
- alert("Hello Javatpoint");  
-}  
-
+$(function){
 var $slider = $(".slideshow .slider"),
   maxItems = $(".item", $slider).length,
   dragging = false,
