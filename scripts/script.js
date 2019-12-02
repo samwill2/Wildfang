@@ -1,109 +1,103 @@
-// your script file for adding your own jquery
-$(function() {
-// Your Code from here on down. Don't delete that line above!
-  console.clear();
+function msg(){  
+ alert("Hello Javatpoint");  
+}  
 
-const nav = document.querySelector("nav");
-const navLinksContainer = document.querySelector(".nav-links");
-const navLinks = [...document.querySelectorAll(".link")];
-const menuBtn = document.querySelector(".menu-btn");
-const subMenuBtn = document.querySelector(".sub-menu-btn");
+var $slider = $(".slideshow .slider"),
+  maxItems = $(".item", $slider).length,
+  dragging = false,
+  tracking,
+  rightTracking;
 
-function createHoverEl() {
-   let hoverEl = document.createElement("div");
-   hoverEl.className = "hover-el";
-   hoverEl.style.setProperty("--y", "0px");
-   hoverEl.style.setProperty("--mousex", "0px");
-   hoverEl.style.setProperty("--mousey", "0px");
-   navLinksContainer.appendChild(hoverEl);
-}
-createHoverEl();
+$sliderRight = $(".slideshow")
+  .clone()
+  .addClass("slideshow-right")
+  .appendTo($(".split-slideshow"));
 
-navLinks.forEach((link, index) => {
-   let hoverEl = navLinksContainer.querySelector(".hover-el");
-   link.style.setProperty("--delay", `${index * 50}ms`);
-   link.addEventListener("mousemove", function(e) {
-      hoverEl.style.setProperty("--y", `${index * 60}px`);
-      hoverEl.style.setProperty("opacity", "1");
-      hoverEl.style.setProperty("--mousex", `${e.pageX - hoverEl.offsetLeft}px`);
-      hoverEl.style.setProperty("--mousey", `${e.pageY - hoverEl.offsetTop}px`);
-   });
-   navLinksContainer.addEventListener("mouseout", function() {
-      hoverEl.style.setProperty("opacity", "0");
-   });
-   link.addEventListener("click", function() {
-      let hoverEl = navLinksContainer.querySelector(".hover-el");
-      hoverEl.style.opacity = '0';
-      toggleSubmenu(link);
-   });
-});
-
-menuBtn.addEventListener("click", function() {
-   nav.classList.toggle("nav-open");
-   menuBtn.classList.toggle("close");
-});
-subMenuBtn.addEventListener("click", function() {
-   nav.classList.toggle("sub-menu-open");
-   removeSubmenu();
-});
-
-function toggleSubmenu(el) {
-   let subMenu = nav.querySelector(".sub-menu");
-   if (el.children[1]) {
-      createSubmenu(el);
-   } else if (nav.contains(subMenu)) {
-      removeSubmenu();
-   } else {
-      return;
-   }
+rightItems = $(".item", $sliderRight).toArray();
+reverseItems = rightItems.reverse();
+$(".slider", $sliderRight).html("");
+for (i = 0; i < maxItems; i++) {
+  $(reverseItems[i]).appendTo($(".slider", $sliderRight));
 }
 
-function createSubmenu(el) {
-   let subMenuContainer = document.createElement("div");
-   subMenuContainer.className = "sub-menu";
-   let subMenuItem = el.children[1].cloneNode(true);
-   let subMenuItemList = [...subMenuItem.children];
-   subMenuItemList.forEach((item, index) => {
-      item.classList.add("off-menu");
-      item.style.setProperty("--delay", `${index * 40}ms`);
-   });
-   nav.classList.toggle("sub-menu-open");
-   nav.appendChild(subMenuContainer);
-   subMenuContainer.appendChild(subMenuItem);
-   setTimeout(function() {
-      subMenuItemList.forEach(item => {
-         item.classList.remove("off-menu");
-         item.classList.add("on-menu");
+$slider.addClass("slideshow-left");
+$(".slideshow-left")
+  .slick({
+    vertical: true,
+    verticalSwiping: true,
+    arrows: false,
+    infinite: true,
+    dots: true,
+    speed: 1000,
+    cssEase: "cubic-bezier(0.7, 0, 0.3, 1)"
+  })
+  .on("beforeChange", function(event, slick, currentSlide, nextSlide) {
+    if (
+      currentSlide > nextSlide &&
+      nextSlide == 0 &&
+      currentSlide == maxItems - 1
+    ) {
+      $(".slideshow-right .slider").slick("slickGoTo", -1);
+      $(".slideshow-text").slick("slickGoTo", maxItems);
+    } else if (
+      currentSlide < nextSlide &&
+      currentSlide == 0 &&
+      nextSlide == maxItems - 1
+    ) {
+      $(".slideshow-right .slider").slick("slickGoTo", maxItems);
+      $(".slideshow-text").slick("slickGoTo", -1);
+    } else {
+      $(".slideshow-right .slider").slick(
+        "slickGoTo",
+        maxItems - 1 - nextSlide
+      );
+      $(".slideshow-text").slick("slickGoTo", nextSlide);
+    }
+  })
+  .on("mousewheel", function(event) {
+    event.preventDefault();
+    if (event.deltaX > 0 || event.deltaY < 0) {
+      $(this).slick("slickNext");
+    } else if (event.deltaX < 0 || event.deltaY > 0) {
+      $(this).slick("slickPrev");
+    }
+  })
+  .on("mousedown touchstart", function() {
+    dragging = true;
+    tracking = $(".slick-track", $slider).css("transform");
+    tracking = parseInt(tracking.split(",")[5]);
+    rightTracking = $(".slideshow-right .slick-track").css("transform");
+    rightTracking = parseInt(rightTracking.split(",")[5]);
+  })
+  .on("mousemove touchmove", function() {
+    if (dragging) {
+      newTracking = $(".slideshow-left .slick-track").css("transform");
+      newTracking = parseInt(newTracking.split(",")[5]);
+      diffTracking = newTracking - tracking;
+      $(".slideshow-right .slick-track").css({
+        transform:
+          "matrix(1, 0, 0, 1, 0, " + (rightTracking - diffTracking) + ")"
       });
-   }, 200);
-}
-function removeSubmenu() {
-   let subMenu = nav.querySelector(".sub-menu");
-   let subMenuItemList = [...subMenu.children[0].children];
-   if (nav.contains(subMenu)) {
-      subMenuItemList.forEach(item => {
-         item.classList.add("off-menu");
-         item.classList.remove("on-menu");
-      });
-      setTimeout(function() {
-         nav.removeChild(subMenu);
-      }, 500);
-   }
-}
+    }
+  })
+  .on("mouseleave touchend mouseup", function() {
+    dragging = false;
+  });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// End of Your Code . Don't delete that line below!!
+$(".slideshow-right .slider").slick({
+  swipe: false,
+  vertical: true,
+  arrows: false,
+  infinite: true,
+  speed: 950,
+  cssEase: "cubic-bezier(0.7, 0, 0.3, 1)",
+  initialSlide: maxItems - 1
+});
+$(".slideshow-text").slick({
+  swipe: false,
+  vertical: true,
+  arrows: false,
+  infinite: true,
+  speed: 900,
+  cssEase: "cubic-bezier(0.7, 0, 0.3, 1)"
 });
