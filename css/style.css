@@ -1,10 +1,4 @@
-body,
-html {
-  height: 100%;
-  background: #fff;
-  font-family: "rig-solid-bold-reverse", sans-serif;
-  overflow: hidden;
-}
+
 
 .slideshow {
   position: absolute;
@@ -20,7 +14,7 @@ html {
   height: 100vw;
   z-index: 2;
 }
-.slideshow .slider * {
+.slideshow .slider *{
   outline: none;
 }
 .slideshow .slider .item {
@@ -67,7 +61,7 @@ html {
   height: 15px;
   text-align: center;
 }
-.slideshow .slick-dots li button:before {
+.slideshow .slick-dots li button: before {
   content: "";
   background: #fff;
   color: #fff;
@@ -108,13 +102,12 @@ html {
   font-size: 80px;
   width: 100vw;
   text-align: center;
-  color: #000;
+  color: #fff;
   font-family: "rig-solid-bold-reverse", sans-serif;
   font-weight: 100;
   pointer-events: none;
   text-transform: uppercase;
-  letter-spacing: 5px;
-  line-height: 0.8;
+  line-height: 1;
 }
 @media (max-width: 767px) {
   .slideshow-text {
@@ -133,4 +126,31 @@ html {
 }
 .the-most img {
   max-width: 100%;
+
+
+
+
+/*
+font-family: 'Mansalva', cursive;
+font-family: 'Dosis', sans-serif;
+font-family: 'Indie Flower', cursive;
+*/
+
+@media only screen and (min-width: 768px) {
+body {
+	background-color:;
 }
+}
+
+@media only screen and (min-width: 1024px) {
+body {
+	background-color:;
+}
+}
+
+@media only screen and (min-width: 1200px) {
+body {
+	background-color:;
+}
+}
+
